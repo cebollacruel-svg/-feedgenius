@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FeedGenius – Your social media, on autopilot.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0e0b;
+      --bg2: #111712;
+      --bg3: #161d17;
+      --accent: #4ade80;
+      --accent2: #22c55e;
+      --text: #f0f5f1;
+      --muted: #7a9080;
+      --border: rgba(74,222,128,0.15);
+      --card: #131a14;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,14,11,0.92); backdrop-filter: blur(12px); z-index: 100; }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--accent); letter-spacing: -0.02em; }
+    .logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    html { scroll-behavior: smooth; }
+    .nav-cta { background: var(--accent); color: #0a0e0b; border: none; padding: 8px 20px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    .hero { padding: 6rem 2.5rem 5rem; max-width: 900px; margin: 0 auto; text-align: center; position: relative; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(74,222,128,0.08) 0%, transparent 70%); pointer-events: none; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,222,128,0.1); border: 1px solid var(--border); color: var(--accent); font-size: 12px; padding: 5px 14px; border-radius: 20px; margin-bottom: 1.5rem; }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 560px; margin: 0 auto 2.5rem; font-weight: 300; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: #0a0e0b; padding: 13px 28px; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--text); padding: 13px 28px; border: 1px solid rgba(240,245,241,0.15); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; cursor: pointer; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: rgba(240,245,241,0.35); }
+
+    .logos { padding: 2.5rem 2.5rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .logos-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .logos p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .logos-row { display: flex; justify-content: center; gap: 2.5rem; align-items: center; flex-wrap: wrap; }
+    .logo-pill { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 8px 18px; font-family: 'Syne', sans-serif; font-size: 13px; color: var(--muted); letter-spacing: 0.02em; }
+
+    .section { padding: 5rem 2.5rem; max-width: 1000px; margin: 0 auto; }
+    .section-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); max-width: 480px; font-weight: 300; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 3rem; }
+    .feat { background: var(--card); padding: 1.75rem; }
+    .feat-icon { width: 36px; height: 36px; background: rgba(74,222,128,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 16px; }
+    .feat h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feat p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .how { background: var(--bg2); padding: 5rem 2.5rem; }
+    .how-inner { max-width: 900px; margin: 0 auto; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .step { position: relative; }
+    .step-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(74,222,128,0.15); line-height: 1; margin-bottom: 0.75rem; }
+    .step h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .step p { font-size: 14px; color: var(--muted); }
+
+    .pricing { padding: 5rem 2.5rem; max-width: 900px; margin: 0 auto; }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .plan { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; position: relative; transition: border-color 0.2s; }
+    .plan:hover { border-color: rgba(74,222,128,0.4); }
+    .plan.popular { border-color: var(--accent); }
+    .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0a0e0b; font-size: 11px; font-weight: 500; padding: 3px 14px; border-radius: 20px; white-space: nowrap; font-family: 'DM Sans', sans-serif; }
+    .plan-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .plan-price { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.25rem; }
+    .plan-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+    .plan-features { list-style: none; margin-bottom: 1.75rem; display: flex; flex-direction: column; gap: 10px; }
+    .plan-features li { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .plan-features li::before { content: ''; display: inline-block; width: 16px; height: 16px; background: rgba(74,222,128,0.15); border-radius: 50%; flex-shrink: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%234ade80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 14px; background-repeat: no-repeat; background-position: center; }
+    .plan-btn { width: 100%; padding: 11px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .plan-btn.outline { background: transparent; color: var(--text); border: 1px solid rgba(240,245,241,0.2); }
+    .plan-btn.outline:hover { border-color: var(--accent); color: var(--accent); }
+    .plan-btn.filled { background: var(--accent); color: #0a0e0b; border: none; }
+    .plan-btn.filled:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    .testi { background: var(--bg2); padding: 5rem 2.5rem; }
+    .testi-inner { max-width: 900px; margin: 0 auto; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .stars { color: var(--accent); font-size: 13px; margin-bottom: 0.75rem; letter-spacing: 2px; }
+    .testi-text { font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 1rem; }
+    .testi-author { font-size: 13px; color: var(--muted); }
+    .testi-author strong { color: var(--text); display: block; }
+
+    .cta { padding: 6rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+    .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(74,222,128,0.06) 0%, transparent 70%); pointer-events: none; }
+    .cta h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .cta p { color: var(--muted); margin-bottom: 2rem; font-weight: 300; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    footer p { font-size: 13px; color: var(--muted); }
+
+    @media(max-width:600px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 4rem 1.25rem 3rem; }
+      .section, .pricing { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Feed<span>Genius</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="https://feedgenius.lemonsqueezy.com/checkout/buy/2778e3c3-2387-46ff-895e-859667b92f1d" target="_blank"><button class="nav-cta">Start free trial</button></a>
+</nav>
+
+<section class="hero">
+  <div class="badge"><span class="badge-dot"></span> AI-powered content planning</div>
+  <h1>Your social media,<br><em>on autopilot.</em></h1>
+  <p class="hero-sub">FeedGenius creates a week of scroll-stopping social media posts for your business in seconds. No copywriter needed.</p>
+  <div class="hero-btns">
+    <a href="https://feedgenius.lemonsqueezy.com/checkout/buy/2778e3c3-2387-46ff-895e-859667b92f1d" target="_blank"><button class="btn-primary">Get started free →</button></a>
+    <a href="#how"><button class="btn-ghost">See how it works</button></a>
+  </div>
+</section>
+
+<div class="logos">
+  <div class="logos-inner">
+    <p>Works with all major platforms</p>
+    <div class="logos-row">
+      <div class="logo-pill">Instagram</div>
+      <div class="logo-pill">Facebook</div>
+      <div class="logo-pill">LinkedIn</div>
+      <div class="logo-pill">Twitter / X</div>
+      <div class="logo-pill">TikTok</div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="features">
+  <div class="section-label">Features</div>
+  <h2 class="section-title">Everything you need to stay consistent online</h2>
+  <p class="section-sub">Built for small business owners who don't have time to think about content every day.</p>
+  <div class="features-grid">
+    <div class="feat"><div class="feat-icon">✦</div><h3>AI content generation</h3><p>Enter your niche and audience — get a full week of captions, hashtags, and post ideas tailored to your brand voice.</p></div>
+    <div class="feat"><div class="feat-icon">◈</div><h3>Multi-platform ready</h3><p>Each post is automatically adapted to fit Instagram, Facebook, LinkedIn, and Twitter/X norms and character limits.</p></div>
+    <div class="feat"><div class="feat-icon">◎</div><h3>Tone & style control</h3><p>Choose from professional, casual, inspirational, educational, or humorous — your brand, your voice, every time.</p></div>
+    <div class="feat"><div class="feat-icon">⬡</div><h3>Promotion integration</h3><p>Running a sale or launching a product? Tell FeedGenius and it weaves your promotion naturally into every post.</p></div>
+    <div class="feat"><div class="feat-icon">⟁</div><h3>One-click copy</h3><p>Copy any post with one click and paste it directly into your scheduling tool or social media app. No friction.</p></div>
+    <div class="feat"><div class="feat-icon">⊕</div><h3>Unlimited generations</h3><p>Didn't like a result? Regenerate instantly. No limits on how many content plans you create each month.</p></div>
+  </div>
+</section>
+
+<div class="how" id="how">
+  <div class="how-inner">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">Ready in under 60 seconds</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3>Describe your business</h3><p>Tell us your niche, your audience, and the tone that fits your brand. Takes 30 seconds.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>AI generates your plan</h3><p>FeedGenius creates a full week of posts for every platform you use, personalized to you.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Copy, post, repeat</h3><p>Copy posts with one click and schedule them. Come back next week and do it again.</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="pricing" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">Simple, honest pricing</h2>
+  <p class="section-sub" style="color:var(--muted); font-weight:300;">Start free. Upgrade when you're ready. Cancel anytime.</p>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price">$0<span>/mo</span></div>
+      <div class="plan-desc">Perfect for trying it out</div>
+      <ul class="plan-features">
+        <li>5 content plans per month</li>
+        <li>2 platforms</li>
+        <li>3 posts per platform</li>
+        <li>All tones & styles</li>
+      </ul>
+      <a href="https://feedgenius.lemonsqueezy.com/checkout/buy/2778e3c3-2387-46ff-895e-859667b92f1d" target="_blank"><button class="plan-btn outline" style="width:100%">Get started free</button></a>
+    </div>
+    <div class="plan popular">
+      <div class="popular-badge">Most popular</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">$19<span>/mo</span></div>
+      <div class="plan-desc">For busy business owners</div>
+      <ul class="plan-features">
+        <li>Unlimited content plans</li>
+        <li>All 5 platforms</li>
+        <li>Up to 7 posts per platform</li>
+        <li>Promotion & campaign mode</li>
+        <li>Priority AI generation</li>
+      </ul>
+      <a href="https://feedgenius.lemonsqueezy.com/checkout/buy/2778e3c3-2387-46ff-895e-859667b92f1d" target="_blank"><button class="plan-btn filled" style="width:100%">Start 7-day free trial</button></a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Agency</div>
+      <div class="plan-price">$49<span>/mo</span></div>
+      <div class="plan-desc">Manage multiple clients</div>
+      <ul class="plan-features">
+        <li>Everything in Pro</li>
+        <li>Up to 10 client profiles</li>
+        <li>White-label exports</li>
+        <li>Priority support</li>
+        <li>Early access to new features</li>
+      </ul>
+      <a href="https://feedgenius.lemonsqueezy.com/checkout/buy/99fe65af-1c78-406c-b4fd-98d2ccd4a71b" target="_blank"><button class="plan-btn outline" style="width:100%">Get started</button></a>
+    </div>
+  </div>
+</section>
+
+<div class="testi">
+  <div class="testi-inner">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">Small businesses love FeedGenius</h2>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-text">"I used to spend 3 hours every Sunday writing posts. Now I get a whole week done in 2 minutes. Absolute game changer."</p><div class="testi-author"><strong>Maria T.</strong>Owner, Bloom Bakery</div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-text">"My engagement went up 40% in the first month. The captions actually sound like me, not like a robot."</p><div class="testi-author"><strong>James K.</strong>Personal trainer & coach</div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p class="testi-text">"I manage 6 clients and FeedGenius saves me hours each week. The agency plan is worth every cent."</p><div class="testi-author"><strong>Priya S.</strong>Social media manager</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="cta">
+  <h2>Start posting smarter today.</h2>
+  <p>Join hundreds of small businesses saving hours every week with FeedGenius.</p>
+  <a href="https://feedgenius.lemonsqueezy.com/checkout/buy/2778e3c3-2387-46ff-895e-859667b92f1d" target="_blank"><button class="btn-primary" style="font-size:1rem; padding: 14px 36px;">Try FeedGenius free →</button></a>
+</section>
+
+<footer>
+  <div class="logo" style="font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:#4ade80;">Feed<span style="color:#f0f5f1">Genius</span></div>
+  <p>© 2026 FeedGenius. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
